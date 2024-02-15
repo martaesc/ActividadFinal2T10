@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 
 import java.io.IOException;
@@ -59,7 +61,7 @@ public class Inventario {
 
     private int ordenacion;
 
-    private String rutaImpresion;
+    private String rutaImpresion = "dispositivos.txt";
 
 
     public Inventario() {
@@ -169,9 +171,16 @@ public void btnBaja() {
 
     }
 
-    public void imprimirDispositivos() {
-        // Código para imprimir dispositivos a un archivo txt
+
+public void imprimirDispositivos() {
+    try (PrintWriter writer = new PrintWriter(rutaImpresion)) {
+        for (Dispositivo dispositivo : dispositivos) {
+            writer.println("[" + dispositivo.getIdentificador() + ", " +  dispositivo.getFechaCompra()  + ", " + dispositivo.getTipoAtributo() + ", " +  dispositivo.getMarca() + ", " + dispositivo.getModelo() + "]");
+        }
+    } catch (FileNotFoundException e) {
+        System.out.println("Error: " + e.getMessage());
     }
+}
 
     public void limpiarCampos() {
         txtId.clear();
