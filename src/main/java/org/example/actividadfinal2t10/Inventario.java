@@ -61,7 +61,7 @@ public class Inventario {
 
     private int ordenacion;
 
-    private String rutaImpresion = "dispositivos.txt";
+    private String rutaImpresion;
 
 
     public Inventario() {
@@ -114,7 +114,7 @@ public void ordenarDispositivosFecha(int orden) {
         // Prompt the user to enter the file path
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Imprimir dispositivos");
-        dialog.setHeaderText("Introduzca la ruta del archivo");
+        dialog.setHeaderText("Introduzca la ruta absoluta del archivo");
         dialog.setContentText("Ruta:");
 
         var result = dialog.showAndWait();
@@ -177,6 +177,13 @@ public void imprimirDispositivos() {
         for (Dispositivo dispositivo : dispositivos) {
             writer.println("[" + dispositivo.getIdentificador() + ", " +  dispositivo.getFechaCompra()  + ", " + dispositivo.getTipoAtributo() + ", " +  dispositivo.getMarca() + ", " + dispositivo.getModelo() + "]");
         }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Confirmación de impresión");
+        alert.setHeaderText(null);
+        alert.setContentText("Los dispositivos se han impreso correctamente en el archivo.");
+        alert.showAndWait();
+
     } catch (FileNotFoundException e) {
         System.out.println("Error: " + e.getMessage());
     }
