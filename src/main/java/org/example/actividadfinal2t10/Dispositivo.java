@@ -45,6 +45,9 @@ public class Dispositivo {
 
     private Dispositivo dispositivo;
 
+    public Dispositivo() {
+    }
+
     public Dispositivo(String identificador, LocalDate fechaCompra, TipoAtributo tipoAtributo, String marca, String modelo) {
         this.identificador = identificador;
         this.fechaCompra = fechaCompra;

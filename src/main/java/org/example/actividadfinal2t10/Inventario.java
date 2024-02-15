@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.time.LocalDate;
 
 import java.io.IOException;
@@ -104,6 +105,8 @@ public class Inventario {
         Dispositivo nuevoDispositivo = new Dispositivo(id, fechaCompraLocalDate, tipo, marca, modelo);
         dispositivos.add(nuevoDispositivo);
         mostrarDispositivos();
+
+        limpiarCampos();
     }
 
 
@@ -111,20 +114,31 @@ public class Inventario {
         // Código para imprimir dispositivos a un archivo txt
     }
 
-@FXML
-public void btnModificar() throws IOException {
-    Dispositivo selectedDispositivo = listaDispositivos.getSelectionModel().getSelectedItem();
-    if (selectedDispositivo != null) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/actividadfinal2t10/dispositivo-view.fxml"));
-        Parent root = loader.load();
-        Dispositivo controller = loader.getController();
-        controller.modificarDispositivo(selectedDispositivo);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
-        mostrarDispositivos();
+    @FXML
+    public void btnModificar() throws IOException {
+        Dispositivo selectedDispositivo = listaDispositivos.getSelectionModel().getSelectedItem();
+        if (selectedDispositivo != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/actividadfinal2t10/dispositivo-view.fxml"));
+            Parent root = loader.load();
+            Dispositivo controller = loader.getController();
+            controller.modificarDispositivo(selectedDispositivo);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            mostrarDispositivos();
+        }
+
+
     }
-}
+
+    public void limpiarCampos() {
+        txtId.clear();
+        fechaAlta.setValue(null);
+        choiceTipo.setValue(null);
+        txtMarca.clear();
+        txtModelo.clear();
+
+    }
 
 }
