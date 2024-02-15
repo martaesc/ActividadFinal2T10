@@ -109,10 +109,15 @@ public class Inventario {
         limpiarCampos();
     }
 
-
-    public void imprimirDispositivos() {
-        // Código para imprimir dispositivos a un archivo txt
+    @FXML
+public void btnBaja() {
+    Dispositivo selectedDispositivo = listaDispositivos.getSelectionModel().getSelectedItem();
+    if (selectedDispositivo != null) {
+        dispositivos.remove(selectedDispositivo);
+        mostrarDispositivos();
     }
+}
+
 
     @FXML
     public void btnModificar() throws IOException {
@@ -130,6 +135,10 @@ public class Inventario {
         }
 
 
+    }
+
+    public void imprimirDispositivos() {
+        // Código para imprimir dispositivos a un archivo txt
     }
 
     public void limpiarCampos() {
