@@ -80,34 +80,66 @@ public class Inventario {
         listaDispositivos.setItems(dispositivosObservable);
     }
 
-    @FXML
-    public void btnOrdenar() {
-        ordenarDispositivosFecha(1); // 1 para ordenación ascendente, 2 para descendente
-        mostrarDispositivos(); // Actualizar la vista después de ordenar
+@FXML
+public void btnOrdenar() {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Ordenar dispositivos por fecha de compra");
+    alert.setHeaderText("Seleccione el orden de clasificación");
+    ButtonType btnAscendente = new ButtonType("Ascendente");
+    ButtonType btnDescendente = new ButtonType("Descendente");
+    alert.getButtonTypes().setAll(btnAscendente, btnDescendente);
+
+    var result = alert.showAndWait();
+    if (result.isPresent() && result.get() == btnAscendente) {
+        ordenarDispositivosFecha(1); // 1 for ascending order
+    } else if (result.isPresent() && result.get() == btnDescendente) {
+        ordenarDispositivosFecha(2); // 2 for descending order
     }
 
-    public void ordenarDispositivosFecha(int tipoOrdenacion) {
-        Comparator<Dispositivo> comparator = Comparator.comparing(Dispositivo::getFechaCompra);
-        if (tipoOrdenacion == 2) {
-            comparator = comparator.reversed();
+    mostrarDispositivos();
+}
+
+public void ordenarDispositivosFecha(int orden) {
+    if (orden == 1) {
+        dispositivos.sort(Comparator.comparing(Dispositivo::getFechaCompra));
+    } else if (orden == 2) {
+        dispositivos.sort(Comparator.comparing(Dispositivo::getFechaCompra).reversed());
+    }
+}
+
+    @FXML
+    public void btnImprimir() {
+        // Prompt the user to enter the file path
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Imprimir dispositivos");
+        dialog.setHeaderText("Introduzca la ruta del archivo");
+        dialog.setContentText("Ruta:");
+
+        var result = dialog.showAndWait();
+        if (result.isPresent()) {
+            rutaImpresion = result.get();
+            imprimirDispositivos();
         }
-        dispositivos.sort(comparator);
-    }
+}
 
     @FXML
-    public void btnAlta() {
-        String id = txtId.getText();
-        LocalDate fechaCompraLocalDate = fechaAlta.getValue();
-        TipoAtributo tipo = choiceTipo.getValue(); // Aquí recogemos el tipo seleccionado en el ChoiceBox
-        String marca = txtMarca.getText();
-        String modelo = txtModelo.getText();
+public void btnAlta() {
+    String id = txtId.getText();
+    LocalDate fechaCompraLocalDate = fechaAlta.getValue();
+    TipoAtributo tipo = choiceTipo.getValue();
+    String marca = txtMarca.getText();
+    String modelo = txtModelo.getText();
 
-        Dispositivo nuevoDispositivo = new Dispositivo(id, fechaCompraLocalDate, tipo, marca, modelo);
-        dispositivos.add(nuevoDispositivo);
-        mostrarDispositivos();
-
-        limpiarCampos();
+    if (id == null || id.isEmpty() || fechaCompraLocalDate == null || tipo == null || marca == null || marca.isEmpty() || modelo == null || modelo.isEmpty()) {
+        return;
     }
+
+    Dispositivo nuevoDispositivo = new Dispositivo(id, fechaCompraLocalDate, tipo, marca, modelo);
+    dispositivos.add(nuevoDispositivo);
+    mostrarDispositivos();
+
+    limpiarCampos();
+}
 
     @FXML
 public void btnBaja() {
