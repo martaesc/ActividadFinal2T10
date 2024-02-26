@@ -11,8 +11,8 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.actividadfinal2t10.Inventario">
    <children>
       <ListView fx:id="listaDispositivos" layoutX="18.0" layoutY="18.0" prefHeight="288.0" prefWidth="282.0" />
-      <Button fx:id="btnAlta" layoutX="30.0" layoutY="336.0" mnemonicParsing="false" onAction="#btnAlta" text="Alta " />
-      <Button fx:id="btnModificar" layoutX="117.0" layoutY="336.0" mnemonicParsing="false" text="Modificación" onAction="#btnModificar"/>
+      <Button fx:id="btnAlta" layoutX="30.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleBtnAltaClick" text="Alta " />
+      <Button fx:id="btnModificar" layoutX="117.0" layoutY="336.0" mnemonicParsing="false" onAction="#btnModificar" text="Modificación" />
       <Button fx:id="btnImprimir" layoutX="487.0" layoutY="336.0" mnemonicParsing="false" text="Imprimir" onAction="#btnImprimir" />
       <Button fx:id="btnOrdenar" layoutX="385.0" layoutY="336.0" mnemonicParsing="false" text="Ordenar" onAction="#btnOrdenar" />
       <Label layoutX="343.0" layoutY="65.0" text="Identificador:" />

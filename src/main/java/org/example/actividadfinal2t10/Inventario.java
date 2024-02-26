@@ -43,19 +43,19 @@ public class Inventario {
     private ListView<Dispositivo> listaDispositivos;
 
     @FXML
-    private TextField txtId;
+    TextField txtId;
 
     @FXML
-    private TextField txtMarca;
+    TextField txtMarca;
 
     @FXML
-    private TextField txtModelo;
+    TextField txtModelo;
 
     @FXML
-    private DatePicker fechaAlta;
+    DatePicker fechaAlta;
 
     @FXML
-    private ChoiceBox<TipoAtributo> choiceTipo;
+    ChoiceBox<TipoAtributo> choiceTipo;
 
     private List<Dispositivo> dispositivos;
 
@@ -63,6 +63,9 @@ public class Inventario {
 
     private String rutaImpresion;
 
+    public List<Dispositivo> getDispositivos() {
+        return dispositivos;
+    }
 
     public Inventario() {
         this.dispositivos = new ArrayList<>();
@@ -74,13 +77,16 @@ public class Inventario {
         ObservableList<TipoAtributo> tiposList = FXCollections.observableArrayList(tipos);
         choiceTipo.setItems(tiposList);
 
-        mostrarDispositivos();
+        actualizarListaDispositivos();
     }
 
-    public void mostrarDispositivos() {
-        ObservableList<Dispositivo> dispositivosObservable = FXCollections.observableArrayList(dispositivos);
-        listaDispositivos.setItems(dispositivosObservable);
-    }
+  public ObservableList<Dispositivo> getDispositivosParaMostrar() {
+    return FXCollections.observableArrayList(dispositivos);
+}
+
+public void actualizarListaDispositivos() {
+    listaDispositivos.setItems(getDispositivosParaMostrar());
+}
 
 @FXML
 public void btnOrdenar() {
@@ -98,7 +104,7 @@ public void btnOrdenar() {
         ordenarDispositivosFecha(2); // 2 for descending order
     }
 
-    mostrarDispositivos();
+    actualizarListaDispositivos();
 }
 
 public void ordenarDispositivosFecha(int orden) {
@@ -124,31 +130,34 @@ public void ordenarDispositivosFecha(int orden) {
         }
 }
 
-    @FXML
-public void btnAlta() {
-    String id = txtId.getText();
-    LocalDate fechaCompraLocalDate = fechaAlta.getValue();
-    TipoAtributo tipo = choiceTipo.getValue();
-    String marca = txtMarca.getText();
-    String modelo = txtModelo.getText();
-
+public void altaDispositivo(String id, LocalDate fechaCompraLocalDate, TipoAtributo tipo, String marca, String modelo) {
     if (id == null || id.isEmpty() || fechaCompraLocalDate == null || tipo == null || marca == null || marca.isEmpty() || modelo == null || modelo.isEmpty()) {
         return;
     }
 
     Dispositivo nuevoDispositivo = new Dispositivo(id, fechaCompraLocalDate, tipo, marca, modelo);
     dispositivos.add(nuevoDispositivo);
-    mostrarDispositivos();
-
-    limpiarCampos();
 }
+
+@FXML
+public void handleBtnAltaClick() {
+    String id = txtId.getText();
+    LocalDate fechaCompraLocalDate = fechaAlta.getValue();
+    TipoAtributo tipo = choiceTipo.getValue();
+    String marca = txtMarca.getText();
+    String modelo = txtModelo.getText();
+
+    altaDispositivo(id, fechaCompraLocalDate, tipo, marca, modelo);
+}
+
+
 
     @FXML
 public void btnBaja() {
     Dispositivo selectedDispositivo = listaDispositivos.getSelectionModel().getSelectedItem();
     if (selectedDispositivo != null) {
         dispositivos.remove(selectedDispositivo);
-        mostrarDispositivos();
+        actualizarListaDispositivos();
     }
 }
 
@@ -165,7 +174,7 @@ public void btnBaja() {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
             stage.showAndWait();
-            mostrarDispositivos();
+            actualizarListaDispositivos();
         }
 
 
