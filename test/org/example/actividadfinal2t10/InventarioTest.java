@@ -4,15 +4,18 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
 
+
+/**
+ * Clase de prueba para la clase Inventario.
+ * Esta clase contiene pruebas para los métodos de la clase Inventario.
+ */
 class InventarioTest {
 
     private Inventario inventario;
@@ -23,7 +26,10 @@ class InventarioTest {
     private TextField txtModelo;
 
 
-
+    /**
+     * Prueba para el método altaDispositivo de la clase Inventario.
+     * Esta prueba verifica que un dispositivo se añade correctamente al inventario y que sus detalles son correctos.
+     */
  @Test
 void testAltaDispositivo() {
     Inventario inventario = new Inventario();
@@ -47,6 +53,10 @@ void testAltaDispositivo() {
     assertEquals(modelo, dispositivo.getModelo());
 }
 
+    /**
+     * Prueba para el método ordenarDispositivosFecha de la clase Inventario con orden ascendente.
+     * Esta prueba verifica que los dispositivos se ordenan correctamente por fecha en orden ascendente.
+     */
     @Test
     void testOrdenarDispositivosFechaAscendente() {
         Inventario inventario = new Inventario();
@@ -60,6 +70,10 @@ void testAltaDispositivo() {
         assertTrue(inventario.getDispositivos().get(0).getFechaCompra().isBefore(inventario.getDispositivos().get(1).getFechaCompra()));
     }
 
+    /**
+     * Prueba para el método ordenarDispositivosFecha de la clase Inventario con orden descendente.
+     * Esta prueba verifica que los dispositivos se ordenan correctamente por fecha en orden descendente.
+     */
     @Test
     void testOrdenarDispositivosFechaDescendente() {
         Inventario inventario = new Inventario();

@@ -48,6 +48,15 @@ public class Dispositivo {
     public Dispositivo() {
     }
 
+
+    /**
+     * Constructor de la clase Dispositivo
+     * @param identificador
+     * @param fechaCompra
+     * @param tipoAtributo
+     * @param marca
+     * @param modelo
+     */
     public Dispositivo(String identificador, LocalDate fechaCompra, TipoAtributo tipoAtributo, String marca, String modelo) {
         this.identificador = identificador;
         this.fechaCompra = fechaCompra;
@@ -58,7 +67,9 @@ public class Dispositivo {
     }
 
 
-
+    /**
+     * Getters y Setters
+     */
     public String getIdentificador() {
         return identificador;
     }
@@ -107,6 +118,11 @@ public class Dispositivo {
         this.modelo = modelo;
     }
 
+
+    /**
+     * Método que se llama automáticamente después de que se ha cargado el archivo FXML.
+     * Inicializa el ChoiceBox de tipos de atributos con todos los valores posibles de TipoAtributo.
+     */
     @FXML
     public void initialize() {
         TipoAtributo[] tipos = TipoAtributo.values();
@@ -115,6 +131,14 @@ public class Dispositivo {
     }
 
 
+    /**
+     * Modifica los detalles del dispositivo seleccionado.
+     *<p>
+     * Este método se utiliza para actualizar los detalles del dispositivo seleccionado en la interfaz de usuario.
+     * Toma un objeto Dispositivo como parámetro y establece los campos de texto y el selector de tipo en la interfaz de usuario con los detalles del dispositivo.
+     *
+     * @param dispositivo el dispositivo seleccionado cuyos detalles se van a modificar.
+     */
     public void modificarDispositivo(Dispositivo dispositivo) {
         this.dispositivo = dispositivo;
         txtId.setText(dispositivo.getIdentificador());
@@ -124,6 +148,14 @@ public class Dispositivo {
         choiceTipo.setValue(dispositivo.getTipoAtributo());
     }
 
+
+    /**
+     * Método asociado al botón de aceptar en la interfaz de usuario.
+     * <p>
+     * Este método recoge los valores introducidos por el usuario en los campos de texto y el selector de tipo,
+     * y los establece en el dispositivo actual.
+     * Luego, cierra la ventana actual.
+     */
     @FXML
     public void btnAceptar() {
         dispositivo.setIdentificador(txtId.getText());
@@ -135,12 +167,27 @@ public class Dispositivo {
         stage.close();
     }
 
+
+    /**
+     * Método asociado al botón de cancelar en la interfaz de usuario.
+     * <p>
+     * Este método obtiene la ventana actual y la cierra, efectivamente cancelando la operación actual.
+     */
     @FXML
     public void btnCancelar() {
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
         stage.close();
     }
 
+
+    /**
+     * Sobrescribe el método toString para la clase Dispositivo.
+     *<p>
+     * Este método devuelve una representación en cadena del objeto Dispositivo,
+     * incluyendo su identificador, fechaCompra, tipoAtributo, marca y modelo.
+     *
+     * @return una representación en cadena del objeto Dispositivo
+     */
     @Override
     public String toString() {
         return "Dispositivo{" +
